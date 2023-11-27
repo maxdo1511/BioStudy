@@ -1,5 +1,6 @@
 import '../css/globals.css'
 import '../css/mainpage.css'
+import '../css/standart/default.css'
 import '../components/userlogo'
 import Userlogo from "@/components/userlogo";
 
@@ -17,26 +18,27 @@ export default function Layout({ children }) {
           <nav className="navbar">
             <ul className="navbar__menu">
               <li className="navbar__item">
-                <a href="/" className="navbar__link"><i data-feather="home"></i><span>Главная</span></a>
+                <a href="/" className="navbar__link prime__button animated__up__button"><i data-feather="home"></i><span>Главная</span></a>
               </li>
               <li className="navbar__item">
-                <a href="/about-us" className="navbar__link"><i data-feather="users"></i><span>О нас</span></a>
+                <a href="/about-us" className="navbar__link prime__button animated__up__button"><i data-feather="users"></i><span>О нас</span></a>
               </li>
               <li className="navbar__item">
-                <a href="/courses" className="navbar__link"><i data-feather="folder"></i><span>Курсы</span></a>
+                <a href="/courses" className="navbar__link prime__button animated__up__button"><i data-feather="folder"></i><span>Курсы</span></a>
               </li>
               <li className="navbar__item">
-                <a href="/news" className="navbar__link"><i data-feather="archive"></i><span>Новости</span></a>
+                <a href="/news" className="navbar__link prime__button animated__up__button"><i data-feather="archive"></i><span>Новости</span></a>
               </li>
               <li className="navbar__item">
-                <a href="/teachers" className="navbar__link"><i data-feather="help-circle"></i><span>Преподаватели</span></a>
+                <a href="/teachers" className="navbar__link prime__button animated__up__button"><i data-feather="help-circle"></i><span>Преподаватели</span></a>
               </li>
               <li className="navbar__item">
-                <a href="/contact" className="navbar__link"><i data-feather="settings"></i><span>Обратная связь</span></a>
+                <a href="/contact" className="navbar__link prime__button animated__up__button"><i data-feather="settings"></i><span>Обратная связь</span></a>
               </li>
             </ul>
+            <Userlogo />
           </nav>
-          <Userlogo />
+
         </header>
 
         <main>{children}</main>

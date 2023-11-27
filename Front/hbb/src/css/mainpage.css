@@ -1,12 +1,20 @@
 header {
-    background-color: rgba(97,97,97,0.53);
+    background-color: var(--background-color);
     border-radius: 20px;
-    padding: 20px;
+    padding: 20px 10px;
     display: flex;
     justify-content: space-between;
+    position: fixed;
+    width: 100%;
+    align-items: center;
 }
 
 nav {
+
+}
+
+.navbar {
+    width: 95%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -30,24 +38,8 @@ nav ul li {
     margin-right: 20px;
 }
 
-a {
-    align-content: end;
-    text-decoration: none;
-    position: relative;
-    display: flex;
+.navbar__link {
     padding: 10px;
-    border: rgba(97,97,97,0.78);
-    color: black;
-    background-image: linear-gradient(rgba(97, 97, 97, 0.53), rgba(97, 97, 97, 0.53));
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    background-size: 0 0;
-    transition: background-size .1s, color .1s;
-}
-
-a:hover {
-    border-radius: 10px;
-    background-size: 100% 100%;
 }
 
 @media (max-width: 767px) {

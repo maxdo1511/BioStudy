@@ -1,3 +1,12 @@
 .user_logo {
-    background-color: black;
+    text-decoration: none;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.user_image {
+    border-radius: 20px;
 }
