@@ -1,10 +1,13 @@
 :root {
     --primary-color: #1c1c1c;
     --primary-color-70: rgba(28, 28, 28, 0.7);
+    --primary-color-10: rgba(28, 28, 28, 0.1);
     --background-color: #e8e8e8;
     --background-color-80: rgba(210, 210, 210, 0.8);
+    --background-color-20: rgba(210, 210, 210, 0.2);
     --text-color-default: #000000;
     --text-color-default-80: rgba(0, 0, 0, 0.8);
+    --text-color-default-30: rgba(0, 0, 0, 0.3);
     --text-color-primary: #0e009b;
     --text-color-reverse: #f3f3f3;
 }

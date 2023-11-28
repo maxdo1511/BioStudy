@@ -17,7 +17,8 @@ import ru.hbb.learnstudio.Auth.Data.SigninRequest;
 import ru.hbb.learnstudio.Auth.Data.SignupRequest;
 import ru.hbb.learnstudio.Auth.Interfaces.UserRepository;
 import ru.hbb.learnstudio.Auth.JwtCore;
-import ru.hbb.learnstudio.Auth.User;
+import ru.hbb.learnstudio.Auth.Entities.User;
+import ru.hbb.learnstudio.enums.UserRole;
 
 @RestController
 @RequestMapping("/auth")
@@ -61,6 +62,7 @@ public class AuthController {
         user.setUsername(signupRequest.getUsername());
         user.setEmail(signupRequest.getEmail());
         user.setPassword(hashed);
+        user.setRole(UserRole.DEFAULT.toString());
         userRepository.save(user);
         return ResponseEntity.ok("Success!");
     }

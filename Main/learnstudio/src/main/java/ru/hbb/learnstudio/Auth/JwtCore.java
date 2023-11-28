@@ -10,10 +10,11 @@ import java.util.Date;
 public class JwtCore {
 
     private String secret = "v5nTTf5S7DIcxu+kda8DVNCKlRRxrkljk3izWNFHh50=";
-    private int lifetime = 60000;
+    private int lifetime = 99999999;
 
     public String generateToken(Authentication authentication) {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        System.out.println(new Date());
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date())
@@ -23,14 +24,9 @@ public class JwtCore {
     }
 
     public String getNameFromJwt(String token) {
-        try {
-            return Jwts.parser()
-                    .setSigningKey(secret)
-                    .parseClaimsJws(token)
-                    .getBody().getSubject();
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        return Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token)
+                .getBody().getSubject();
     }
 }

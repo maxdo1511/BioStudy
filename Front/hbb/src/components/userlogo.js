@@ -1,5 +1,5 @@
 import Image from "next/image";
-import icon from "public/pushkin.jpg";
+import icon from "public/next.svg";
 import "../css/components/userlogo.css"
 import "../css/standart/default.css"
 

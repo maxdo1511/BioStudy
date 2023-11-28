@@ -1,0 +1,135 @@
+.background{
+    width: 430px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+}
+.background .shape{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+}
+.shape:first-child{
+    background: linear-gradient(
+            #1845ad,
+            #23a2f6
+    );
+    left: -80px;
+    top: -80px;
+}
+.shape:last-child{
+    background: linear-gradient(
+            to right,
+            #ff512f,
+            #f09819
+    );
+    right: -30px;
+    bottom: -80px;
+}
+form{
+    height: 520px;
+    width: 400px;
+    background-color: var(--background-color-20);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--primary-color-10);
+    box-shadow: 0 0 40px var(--primary-color-70);
+    padding: 50px 35px;
+}
+form *{
+    font-family: 'Poppins',sans-serif;
+    color: var(--text-color-default);
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+form h3{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+}
+
+label{
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+input{
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: var(--primary-color-10);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+::placeholder{
+    color: var(--text-color-default-30);
+}
+
+button{
+    margin-top: 50px;
+    width: 100%;
+    background-color: var(--primary-color-10);
+    color: var(--text-color-default-80);
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: var(--primary-color-70);
+    color: var(--text-color-reverse);
+}
+
+.social{
+    margin-top: 30px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.fab {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    text-decoration: none;
+    background-color: var(--primary-color-10);
+    border-radius: 5px;
+}
+
+.buttons {
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+.fab:hover {
+    background-color: var(--primary-color-70);
+}
+
+.google {
+    margin-bottom: 10px;
+}
+
+.google__title {
+    padding-left: 15px;
+}
+
+.vk__title {
+    padding-left: 15px;
+}

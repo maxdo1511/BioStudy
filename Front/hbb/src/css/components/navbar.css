@@ -1,0 +1,43 @@
+.navbar {
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar__menu {
+    width: 100%;
+    align-items: start;
+}
+
+.navbar .navbar__menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .navbar__menu .navbar__item {
+    display: flex;
+    margin-right: 20px;
+}
+
+.navbar__link {
+    padding: 10px;
+}
+
+.auth__buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.auth__button {
+    padding: 10px;
+}
+
+
+@media (max-width: 767px) {
+
+}

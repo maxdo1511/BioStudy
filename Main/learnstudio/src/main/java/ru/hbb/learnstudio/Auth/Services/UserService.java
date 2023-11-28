@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.hbb.learnstudio.Auth.Interfaces.UserRepository;
-import ru.hbb.learnstudio.Auth.User;
+import ru.hbb.learnstudio.Auth.Entities.User;
 import ru.hbb.learnstudio.Auth.UserDetailsImpl;
 
 @Service

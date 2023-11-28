@@ -66,8 +66,15 @@ public class SecurityConfigurator {
                 exceptionHandling(exceptions -> exceptions.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))).
                 sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).
                 authorizeHttpRequests(authorize -> authorize.
-                        requestMatchers("/auth/**").permitAll().
-                        requestMatchers("/secured/user").fullyAuthenticated().
+                        requestMatchers(
+                                "/auth/**",
+                                "/courses/all-active"
+                        ).permitAll().
+                        requestMatchers(
+                                "/dashboard/**",
+                                "/courses/add",
+                                "/courses/all"
+                        ).fullyAuthenticated().
                         anyRequest().permitAll()
                 ).
                 addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);

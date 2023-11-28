@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/secured")
+@RequestMapping("/dashboard")
 public class MainController {
 
     @GetMapping("/user")

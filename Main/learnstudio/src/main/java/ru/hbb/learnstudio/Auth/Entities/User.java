@@ -1,4 +1,4 @@
-package ru.hbb.learnstudio.Auth;
+package ru.hbb.learnstudio.Auth.Entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -14,4 +14,5 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private String role;
 }
