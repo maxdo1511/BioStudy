@@ -13,8 +13,10 @@
     --text-color-default: #000000;
     --text-color-default-80: rgba(0, 0, 0, 0.8);
     --text-color-default-30: rgba(0, 0, 0, 0.3);
-    --text-color-primary: #0e009b;
+    --text-color-primary: #1400ff;
     --text-color-reverse: #f3f3f3;
+    --button-color-primary: #3659f8;
+    --button-color-primary-dark: #0048ff;
 
 
     --hue: 223;
