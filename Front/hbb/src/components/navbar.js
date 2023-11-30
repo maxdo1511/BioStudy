@@ -6,12 +6,23 @@ import '../css/mainpage.css'
 import '../css/standart/default.css'
 import '../css/components/navbar.css'
 import '../components/userlogo'
-import {useState} from "react";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
-const Navbar = () => {
+/*
+export const getUserItem = async () => {
 
-    const [item, setItem] = useState();
+    const item = localStorage.getItem('token')
+
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(item)
+        }, 100);
+    });
+}
+ */
+
+export default function Navbar() {
+    const [item, setItem] = useState('');
 
     useEffect(() => {
         setItem(localStorage.getItem("token"))
@@ -39,21 +50,24 @@ const Navbar = () => {
                     <a href="/contact" className="navbar__link prime__button animated__up__button"><i data-feather="settings"></i><span>Обратная связь</span></a>
                 </li>
             </ul>
-            {item != null ?
-                (
-                    <Userlogo />
-                ) : (
-                    <div className="auth__buttons">
-                        <a href="/signin" className="prime__button auth__button">
-                            Вход
-                        </a>
-                        <a href="/signup" className="prime__button auth__button">
-                            Регистрация
-                        </a>
-                    </div>
-                )}
+            {item === '' &&
+                <div></div>
+            }
+            {item == null &&
+                <div className="auth__buttons">
+                    <a href="/signin" className="prime__button auth__button">
+                        Вход
+                    </a>
+                    <a href="/signup" className="prime__button auth__button">
+                        Регистрация
+                    </a>
+                </div>
+            }
+            {item != null && item.length > 1 &&
+                <Userlogo />
+            }
         </nav>
     )
-}
 
-export default Navbar;
+
+}

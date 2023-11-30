@@ -1,0 +1,24 @@
+.not__found__main {
+    padding-top: 50px;
+}
+
+.not__found__button {
+    padding: 10px;
+    background-color: var(--primary-color-10);
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.not__found__board {
+    padding: 15px;
+    border-radius: 20px;
+    background-color: var(--background-color-20);
+}
+
+.not__found__title {
+    padding: 10px;
+    text-align: center;
+    font-size: 20px;
+}
