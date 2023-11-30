@@ -1,9 +1,10 @@
+import '../css/mainpage.css'
+import NewsContainer from "@/components/news_container";
+
 export default function Home() {
   return (
-    <div>
-      <h1>
-        Start
-      </h1>
+    <div className={"main__page__container"}>
+        <NewsContainer />
     </div>
   )
 }
