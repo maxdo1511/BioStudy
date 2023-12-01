@@ -66,7 +66,16 @@ public class CourseDataController {
     }
 
     @PostMapping("/add")
-    ResponseEntity<?> signup(@RequestBody CourseDataRequest courseDataRequest) {
+    ResponseEntity<?> addCourse(Principal principal, @RequestBody CourseDataRequest courseDataRequest) {
+        if (principal == null) {
+            return null;
+        }
+        User user = userRepository.findUserByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(
+                String.format("User '%s' not found", principal.getName())
+        ));
+        if (!user.getRole().equalsIgnoreCase(UserRole.ADMIN.toString())) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No permissions");
+        }
         try {
             String uuid = UUID.randomUUID().toString();
             CourseData courseData = new CourseData();

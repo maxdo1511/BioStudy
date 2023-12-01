@@ -21,7 +21,9 @@ export default function RootLayout({ children }) {
             </header>
 
             <main className={inter.className}>
-                {children}
+                <div className={"main__page__container"}>
+                    {children}
+                </div>
             </main>
 
             <footer>

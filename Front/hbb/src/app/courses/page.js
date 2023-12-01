@@ -1,9 +1,13 @@
 import config from "@/app/properties";
 import Image from "next/image";
+import '../../css/standart/default.css'
+import './courese.css'
 import icon from "../../../public/next.svg";
 
 export const coursesData = async () => {
-    const res = await fetch(config.courses_for_user);
+    const res = await fetch(config.courses_for_user, {
+        next: {relative: 60}
+    });
     if (!res.ok) {
         throw new Error('Something went wrong!');
     }
@@ -30,7 +34,7 @@ const Courses = async () => {
                         <Image className="w-full h-56 object-contain mix-blend-color-burn p-5" src={icon} width={500} height={300} alt="product image" priority />
                         <div className="flex items-center justify-between p-4 bg-gray-900 rounded-lg">
                             <h1 className="text-gray-200 font-bold text-xl">${product.cost}</h1>
-                            <a href={"/"} className="px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded hover:scale-105 transition-transform">Посмотреть</a>
+                            <a href={"/"} className="prime__button text-white button__show__info">Посмотреть</a>
                         </div>
                     </div>
                 ))

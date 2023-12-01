@@ -6,8 +6,11 @@ import org.springframework.stereotype.Component;
 import ru.hbb.learnstudio.Auth.Entities.User;
 import ru.hbb.learnstudio.Auth.Interfaces.UserRepository;
 import ru.hbb.learnstudio.Profile.Data.ProfileDataRequest;
+import ru.hbb.learnstudio.Utils.ImageUtils;
 
+import java.io.IOException;
 import java.security.Principal;
+import java.util.UUID;
 
 @Component
 public class ProfileCore {
@@ -29,5 +32,32 @@ public class ProfileCore {
         profileDataRequest.setIcon(user.getIcon());
         profileDataRequest.setRole(user.getRole());
         return profileDataRequest;
+    }
+
+     public boolean changeUserIcon(byte[] iconBytes, User user) {
+        String iconID = user.getUsername() +
+             "-icon" +
+             ".png";
+        boolean hasIcon = userRepository.existsUserByIcon(iconID);
+        if (hasIcon) {
+            try {
+                ImageUtils.removeImage(iconID);
+            } catch (IOException e) {
+                return false;
+            }
+        }
+        try {
+            ImageUtils.saveImage(iconBytes, iconID);
+        } catch (IOException e) {
+            return false;
+        }
+        try {
+            user.setIcon(iconID);
+            userRepository.save(user);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }

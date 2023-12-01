@@ -3,7 +3,9 @@ const config = {
     "signup": "http://127.0.0.1:8080/auth/signup",
     "courses_for_user": "http://127.0.0.1:8080/courses/all-active",
     "courses_all": "",
-    "add-icon": "http://127.0.0.1:8080/profile/load-icon",
+    "add_icon": "http://127.0.0.1:8080/profile/load-icon",
+    "user_data": "http://127.0.0.1:8080/profile/userdata/default",
+    "user_icon": "http://127.0.0.1:8080/profile/userdata/icon",
 }
 
 export default config;

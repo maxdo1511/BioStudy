@@ -3,7 +3,7 @@ import NewsContainer from "@/components/news_container";
 
 export default function Home() {
   return (
-    <div className={"main__page__container"}>
+    <div className={"main__page__news__container"}>
         <NewsContainer />
         <NewsContainer />
         <NewsContainer />

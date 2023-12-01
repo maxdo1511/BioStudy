@@ -8,6 +8,7 @@ import Image from "next/image";
 import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
 import config from "@/app/properties";
+import {signIn} from "@/app/courses/signin_module";
 
 export default function SignIn() {
 
@@ -22,24 +23,10 @@ export default function SignIn() {
         }
     })
 
-    async function handle() {
-        const user = {
-            "username": name,
-            "password": password
-        }
-        const res = await fetch(config.signin, {
-                method: "POST",
-                body: JSON.stringify(user),
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            }
-        )
-        if (res.ok) {
-            const json = await res.text()
-            await localStorage.setItem("token", json)
-        }
+    function handle() {
+        signIn(name, password).then(r => {
+            console.log("Success")
+        })
     }
 
     return (
@@ -48,10 +35,10 @@ export default function SignIn() {
                 <div className="shape"></div>
                 <div className="shape"></div>
             </div>
-            <form onSubmit={async () => { await handle()}}>
+            <form onSubmit={handle}>
                 <h3>Войдите</h3>
 
-                <label htmlFor="username">Логин {name} {password}</label>
+                <label htmlFor="username">Логин</label>
                 <input type="text" placeholder="SoLEk" id="username" onChange={event => setName(event.target.value)}/>
 
                 <label htmlFor="password">Пароль</label>

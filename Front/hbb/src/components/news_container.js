@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function NewsContainer() {
 
     return (
-        <div className={"news__container__main"}>
+        <div className={"news__container__main shadow-lg rounded-lg"}>
             <Image className={"news__icon"} src={icon} alt={""} />
             <div className={"text__container"}>
                 <div className={"title__container"}>

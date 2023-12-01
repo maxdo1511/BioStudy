@@ -7,19 +7,7 @@ import '../css/standart/default.css'
 import '../css/components/navbar.css'
 import '../components/userlogo'
 import {useEffect, useState} from "react";
-
-/*
-export const getUserItem = async () => {
-
-    const item = localStorage.getItem('token')
-
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(item)
-        }, 100);
-    });
-}
- */
+import config from "@/app/properties";
 
 export default function Navbar() {
     const [item, setItem] = useState('');
