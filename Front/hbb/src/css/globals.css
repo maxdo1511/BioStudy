@@ -39,3 +39,7 @@ html, body {
     padding: 0;
     margin: 0;
 }
+
+.content__padding {
+    padding-top: 100px;
+}
