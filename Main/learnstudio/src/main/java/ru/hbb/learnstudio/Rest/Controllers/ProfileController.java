@@ -3,6 +3,7 @@ package ru.hbb.learnstudio.Rest.Controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,10 @@ import ru.hbb.learnstudio.Profile.ProfileCore;
 import ru.hbb.learnstudio.Utils.ImageUtils;
 import ru.hbb.learnstudio.enums.UserRole;
 
+import javax.activation.FileTypeMap;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.security.Principal;
 import java.util.UUID;
 
@@ -32,39 +36,6 @@ public class ProfileController {
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
-    }
-
-    @GetMapping("/userdata/default")
-    public String getAllCourses(Principal principal) {
-        if (principal == null) {
-            return null;
-        }
-        ProfileDataRequest profileDataRequest = profileCore.getUserData(principal);
-        try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            String json = objectMapper.writeValueAsString(profileDataRequest);
-            return json;
-        } catch (Exception e) {
-            return e.getMessage();
-        }
-    }
-
-    @GetMapping("/userdata/icon")
-    public byte[] getUserIcon(Principal principal) {
-        if (principal == null) {
-            return null;
-        }
-        User user = userRepository.findUserByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(
-                String.format("User '%s' not found", principal.getName())
-        ));
-        try {
-            String iconID = user.getUsername() +
-                    "-icon" +
-                    ".png";
-            return ImageUtils.getImage(iconID);
-        }catch (IOException e) {
-            return null;
-        }
     }
 
     @PostMapping("/load-icon")

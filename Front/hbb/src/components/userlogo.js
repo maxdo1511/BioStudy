@@ -6,36 +6,30 @@ import {useEffect, useState} from "react";
 import config from "@/app/properties";
 
 const UserLogo = () => {
-    const [image, setImage] = useState("")
+    const [userName, name] = useState("")
     useEffect(() => {
-        fetch(config.user_icon, {
+        fetch(config.user_data, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("token")
             },
         }).then(r => {
-                const bytes = r.arrayBuffer()
-                console.log(bytes)
-                const base64Image = btoa(
-                    new Uint8Array(bytes)
-                        .reduce((data, byte) => data + String.fromCharCode(byte), '')
-                );
-                const img = `data:image/jpeg;base64,${base64Image}`
-                console.log(img)
-                setImage(img);
+
             }
         )
     }, [])
     return (
         <div>
-            <a className="user_logo" href={"/"}>
-                <Image
-                    className="user_image"
-                    src={image}
-                    alt="profil icon"
-                    width={40}
-                    height={40}
-                />
+            <a className="user_logo" href={"/dashboard/profile"}>
+                <div className="user_image__container">
+                    <Image
+                        className="user_image"
+                        src={config.user_icon + userName}
+                        alt="profil icon"
+                        width={40}
+                        height={40}
+                    />
+                </div>
                 Profile
             </a>
         </div>

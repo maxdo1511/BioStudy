@@ -5,7 +5,7 @@ const config = {
     "courses_all": "",
     "add_icon": "http://127.0.0.1:8080/profile/load-icon",
     "user_data": "http://127.0.0.1:8080/profile/userdata/default",
-    "user_icon": "http://127.0.0.1:8080/profile/userdata/icon",
+    "user_icon": "http://127.0.0.1:8080/api/images/",
 }
 
 export default config;

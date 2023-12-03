@@ -34,6 +34,18 @@ public class ProfileCore {
         return profileDataRequest;
     }
 
+    public ProfileDataRequest getUserData(String name) {
+        User user = userRepository.findUserByUsername(name).orElseThrow(() -> new UsernameNotFoundException(
+                String.format("User '%s' not found", name)
+        ));
+        ProfileDataRequest profileDataRequest = new ProfileDataRequest();
+        profileDataRequest.setName(user.getUsername());
+        profileDataRequest.setDescription(user.getDescription());
+        profileDataRequest.setIcon(user.getIcon());
+        profileDataRequest.setRole(user.getRole());
+        return profileDataRequest;
+    }
+
      public boolean changeUserIcon(byte[] iconBytes, User user) {
         String iconID = user.getUsername() +
              "-icon" +

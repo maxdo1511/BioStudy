@@ -1,5 +1,6 @@
 package ru.hbb.learnstudio.Utils;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -25,10 +26,9 @@ public class ImageUtils {
         Files.delete(path);
     }
 
-    public static byte[] getImage(String uuid) throws IOException {
+    public static File getImage(String uuid) throws IOException {
         String removePath = DIR + uuid;
-        Path path = Paths.get(removePath);
-        return Files.readAllBytes(path);
+        return new File(removePath);
     }
 
 }

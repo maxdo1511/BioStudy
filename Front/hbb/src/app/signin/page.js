@@ -7,42 +7,43 @@ import vk from "public/icons/vk.svg";
 import Image from "next/image";
 import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
-import config from "@/app/properties";
-import {signIn} from "@/app/courses/signin_module";
+import {signIn} from "./signin_module";
+import {Checkbox} from "@icon-park/react";
 
 export default function SignIn() {
 
-    const [name, setName] = useState('')
-    const [password, setPassword] = useState('')
+    const [state, setState] = useState({
+        username: "",
+        password: ""
+    })
+    const [save, setSave] = useState(false)
 
     const router = useRouter();
 
-    useEffect(() => {
-        if (localStorage.getItem("token") != null) {
-            router.push('/')
-        }
-    })
+    function handleChange(e) {
+        const copy = {...state}
+        copy[e.target.name] = e.target.value
+        setState(copy)
+    }
 
     function handle() {
-        signIn(name, password).then(r => {
-            console.log("Success")
-        })
+        useEffect(() => {
+            signIn(state).then(r => {
+                router.push("/dashboard/profile")
+            })
+        }, []);
     }
 
     return (
         <div>
-            <div className="background">
-                <div className="shape"></div>
-                <div className="shape"></div>
-            </div>
             <form onSubmit={handle}>
                 <h3>Войдите</h3>
 
                 <label htmlFor="username">Логин</label>
-                <input type="text" placeholder="SoLEk" id="username" onChange={event => setName(event.target.value)}/>
+                <input type="text" placeholder="SoLEk" id="username" onChange={event => handleChange(event)}/>
 
                 <label htmlFor="password">Пароль</label>
-                <input type="password" placeholder="123" id="password" onChange={event => setPassword(event.target.value)}/>
+                <input type="password" placeholder="123" id="password" onChange={event => handleChange(event)}/>
 
                 <button className="animated__up__button" type="submit">Войти</button>
 

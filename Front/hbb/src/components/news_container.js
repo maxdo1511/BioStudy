@@ -7,7 +7,14 @@ export default function NewsContainer() {
 
     return (
         <div className={"news__container__main shadow-lg rounded-lg"}>
-            <Image className={"news__icon"} src={icon} alt={""} />
+            <div className={"news__icon__container"}>
+                <Image
+                    fill
+                    className={"news__icon"}
+                    src={icon}
+                    alt={""}
+                />
+            </div>
             <div className={"text__container"}>
                 <div className={"title__container"}>
                     <a href={"/"} className={"text-4xl text__title"}>

@@ -7,6 +7,11 @@
     gap: 10px;
 }
 
+.user_image__container {
+    width: 40px;
+    height: 40px;
+}
+
 .user_image {
     border-radius: 20px;
 }
