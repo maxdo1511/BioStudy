@@ -4,34 +4,49 @@ import "../css/components/userlogo.css"
 import "../css/standart/default.css"
 import {useEffect, useState} from "react";
 import config from "@/app/properties";
+import {useRouter} from "next/navigation";
+
 
 const UserLogo = () => {
-    const [userName, name] = useState("")
+    const router = useRouter()
+    const [userName, setName] = useState("")
     useEffect(() => {
-        fetch(config.user_data, {
+        fetch(config.user_data_from_token, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("token")
             },
-        }).then(r => {
-
+        }).then(async r => {
+                const data = await r.json();
+                setName(data.name)
             }
-        )
+        ).catch(e => {
+            if (e.toString().includes("UNAUTHORIZED")) {
+                localStorage.removeItem("token")
+                router.push("/signin")
+            }
+        })
     }, [])
     return (
         <div>
-            <a className="user_logo" href={"/dashboard/profile"}>
-                <div className="user_image__container">
-                    <Image
-                        className="user_image"
-                        src={config.user_icon + userName}
-                        alt="profil icon"
-                        width={40}
-                        height={40}
-                    />
-                </div>
-                Profile
-            </a>
+            {
+                userName != null &&
+                <a className="user_logo" href={"/profile"}>
+                    <div className="user_image__container">
+                        <Image
+                            className="user_image"
+                            src={config.user_icon + userName}
+                            alt="profil icon"
+                            sizes="40px"
+                            fill
+                            style={{
+                                objectFit: 'cover',
+                            }}
+                        />
+                    </div>
+                    {userName}
+                </a>
+            }
         </div>
     )
 }

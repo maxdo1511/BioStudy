@@ -9,29 +9,21 @@ import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
 import {signIn} from "./signin_module";
 import {Checkbox} from "@icon-park/react";
+import config from "@/app/properties";
 
 export default function SignIn() {
 
-    const [state, setState] = useState({
-        username: "",
-        password: ""
-    })
-    const [save, setSave] = useState(false)
+    const [name, setName] = useState('')
+    const [password, setPassword] = useState('')
 
     const router = useRouter();
 
-    function handleChange(e) {
-        const copy = {...state}
-        copy[e.target.name] = e.target.value
-        setState(copy)
+    if (localStorage.getItem('token') != null) {
+        router.push("/profile")
     }
 
     function handle() {
-        useEffect(() => {
-            signIn(state).then(r => {
-                router.push("/dashboard/profile")
-            })
-        }, []);
+        signIn(name, password)
     }
 
     return (
@@ -40,10 +32,10 @@ export default function SignIn() {
                 <h3>Войдите</h3>
 
                 <label htmlFor="username">Логин</label>
-                <input type="text" placeholder="SoLEk" id="username" onChange={event => handleChange(event)}/>
+                <input type="text" placeholder="SoLEk" id="username" onChange={event => setName(event.target.value)}/>
 
                 <label htmlFor="password">Пароль</label>
-                <input type="password" placeholder="123" id="password" onChange={event => handleChange(event)}/>
+                <input type="password" placeholder="123" id="password" onChange={event => setPassword(event.target.value)}/>
 
                 <button className="animated__up__button" type="submit">Войти</button>
 

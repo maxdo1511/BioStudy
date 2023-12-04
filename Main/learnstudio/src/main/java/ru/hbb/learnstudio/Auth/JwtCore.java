@@ -10,7 +10,7 @@ import java.util.Date;
 public class JwtCore {
 
     private String secret = "v5nTTf5S7DIcxu+kda8DVNCKlRRxrkljk3izWNFHh50=";
-    private int lifetime = 99999999;
+    private long lifetime = 10 * 1000 * 60;
 
     public String generateToken(Authentication authentication) {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();

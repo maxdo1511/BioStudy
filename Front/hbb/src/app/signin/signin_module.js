@@ -1,17 +1,23 @@
 import config from "@/app/properties";
 
-export async function signIn(state) {
-    const res = fetch(config.signin, {
+export async function signIn(username, password) {
+    const request = {
+        username,
+        password
+    }
+    await fetch(config.signin, {
             method: "POST",
-            body: JSON.stringify(state),
+            body: JSON.stringify(request),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
         }
+    ).then(async (res) => {
+        const json = res.text()
+        localStorage.setItem("token", await json)
+    }).then(() => {
+            console.log("SUCCESS")
+        }
     )
-    if (res.ok) {
-        const json = await res.text()
-        localStorage.setItem("token", json)
-    }
 }

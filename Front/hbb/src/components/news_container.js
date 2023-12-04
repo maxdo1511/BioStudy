@@ -9,6 +9,7 @@ export default function NewsContainer() {
         <div className={"news__container__main shadow-lg rounded-lg"}>
             <div className={"news__icon__container"}>
                 <Image
+                    sizes={"300px"}
                     fill
                     className={"news__icon"}
                     src={icon}

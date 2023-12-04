@@ -43,6 +43,7 @@ public class ProfileCore {
         profileDataRequest.setDescription(user.getDescription());
         profileDataRequest.setIcon(user.getIcon());
         profileDataRequest.setRole(user.getRole());
+        profileDataRequest.setEmail(user.getEmail());
         return profileDataRequest;
     }
 

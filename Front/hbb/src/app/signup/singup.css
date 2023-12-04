@@ -39,7 +39,6 @@ form{
     top: 50%;
     left: 50%;
     border-radius: 10px;
-    backdrop-filter: blur(10px);
     border: 2px solid var(--primary-color-10);
     box-shadow: 0 0 40px var(--primary-color-70);
     padding: 50px 35px;

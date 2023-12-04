@@ -1,9 +1,11 @@
 import '../../css/globals.css'
+import './dashboard.css'
+import UserInfo from "@/components/userinfo";
 
 export default function DashboardLayout({ children }) {
     return (
-        <div className={"content__padding"}>
-            Dashboard
+        <div className={"dashboard__container"}>
+            <UserInfo />
             {children}
         </div>
     )

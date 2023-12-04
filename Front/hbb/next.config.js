@@ -4,9 +4,9 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'http',
-                hostname: 'localhost',
+                hostname: '127.0.0.1',
                 port: '8080',
-                pathname: '/api/images/*',
+                pathname: '/api/**',
             },
         ],
     },

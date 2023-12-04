@@ -3,9 +3,14 @@ package ru.hbb.learnstudio.Rest.Controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hbb.learnstudio.Profile.Data.ProfileDataRequest;
 import ru.hbb.learnstudio.Profile.ProfileCore;
+
+import java.net.http.HttpResponse;
+import java.security.Principal;
 
 @RestController
 @RequestMapping("/api")
@@ -29,6 +34,22 @@ public class UserDataController {
             throw new RuntimeException(e);
         }
         return json;
+    }
+
+    @GetMapping("/userdata")
+    ResponseEntity<?> getUserData(Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
+        }
+        ProfileDataRequest profileDataRequest = profileCore.getUserData(principal.getName());
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = null;
+        try {
+            json = objectMapper.writeValueAsString(profileDataRequest);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return ResponseEntity.ok(json);
     }
 
 }

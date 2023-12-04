@@ -8,6 +8,7 @@ public class ProfileDataRequest {
     private String uuid;
     private String name;
     private String description;
+    private String email;
     private String icon;
     private String role;
 }
