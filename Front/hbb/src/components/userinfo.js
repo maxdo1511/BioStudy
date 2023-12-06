@@ -3,13 +3,13 @@ import '../css/components/userinfo.css'
 import Image from "next/image";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
-import config from "@/app/properties";
+import config from "@/app/config";
 
 export default function UserInfo() {
     const router = useRouter()
     const [info, setInfo] = useState(null)
     useEffect(() => {
-        fetch(config.user_data_from_token, {
+        fetch(config.user_simple_data_from_token, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("token")
@@ -31,21 +31,27 @@ export default function UserInfo() {
                 info != null &&
                 <div className={"profile__userinfo__container"}>
                     <div className={"profile__icon__container"}>
-                        <Image
-                            className="profile__icon"
-                            src={config.user_icon + info.name}
-                            alt="profil icon"
-                            sizes="100%"
-                            fill
-                            style={{
-                                objectFit: 'cover',
-                            }}
-                        />
+                        {info.name !== "" &&
+                            <Image
+                                className="profile__icon"
+                                src={config.user_icon + info.username}
+                                alt="profil icon"
+                                sizes="100%"
+                                fill
+                                style={{
+                                    objectFit: 'cover',
+                                }}
+                            />
+                        }
                     </div>
                     <div className={"profile__info"}>
                         <h1 className={"text-2xl text-base"}>
-                            {info.name}
+                            {info.username}
                         </h1>
+                        <h2 className={"profile__external__text text-1xl"}>
+                            {info.firstName + "   "}
+                            {info.secondName}
+                        </h2>
                         <br/>
                         <h2 className={"profile__external__text text-1xl"}>
                             {info.description}

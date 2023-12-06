@@ -1,4 +1,4 @@
-import config from "@/app/properties";
+import config from "@/app/config";
 import Image from "next/image";
 import '../../css/standart/default.css'
 import './courese.css'

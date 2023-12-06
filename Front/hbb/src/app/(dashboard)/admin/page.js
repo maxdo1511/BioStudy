@@ -1,7 +1,7 @@
 'use client'
 
 import './a.css'
-import config from "@/app/properties";
+import config from "@/app/config";
 import {handleImageUpload} from "@/utils/image_module";
 
 export default function ImageUpload() {

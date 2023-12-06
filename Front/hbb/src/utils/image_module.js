@@ -1,4 +1,4 @@
-import config from "@/app/properties";
+import config from "@/app/config";
 
 function getByteArrayFromImage(file) {
     return new Promise((resolve, reject) => {

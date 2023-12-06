@@ -5,7 +5,7 @@ import '../../css/standart/default.css'
 import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
 import {signUp} from "./signup_module";
-import config from "@/app/properties";
+import config from "@/app/config";
 
 export default function SignUp() {
 

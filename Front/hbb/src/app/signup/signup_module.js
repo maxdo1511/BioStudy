@@ -1,4 +1,4 @@
-import config from "@/app/properties";
+import config from "@/app/config";
 
 export async function signUp(json) {
     const res = await fetch(config.signup, {

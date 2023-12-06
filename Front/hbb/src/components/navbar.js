@@ -7,7 +7,7 @@ import '../css/standart/default.css'
 import '../css/components/navbar.css'
 import '../components/userlogo'
 import {useEffect, useState} from "react";
-import config from "@/app/properties";
+import config from "@/app/config";
 
 export default function Navbar() {
     const [item, setItem] = useState('');

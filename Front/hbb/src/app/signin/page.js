@@ -8,8 +8,6 @@ import Image from "next/image";
 import {useRouter} from "next/navigation";
 import {useEffect, useState} from "react";
 import {signIn} from "./signin_module";
-import {Checkbox} from "@icon-park/react";
-import config from "@/app/properties";
 
 export default function SignIn() {
 
@@ -18,8 +16,10 @@ export default function SignIn() {
 
     const router = useRouter();
 
-    if (localStorage.getItem('token') != null) {
-        router.push("/profile")
+    if (typeof window !== 'undefined') {
+        if (localStorage.getItem('token') != null) {
+            router.push("/profile")
+        }
     }
 
     function handle() {

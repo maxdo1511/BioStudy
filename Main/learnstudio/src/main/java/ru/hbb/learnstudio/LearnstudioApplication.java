@@ -2,7 +2,7 @@ package ru.hbb.learnstudio;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import ru.hbb.learnstudio.Auth.JwtCore;
+import ru.hbb.learnstudio.jwt_auth.JwtCore;
 
 @SpringBootApplication
 public class LearnstudioApplication {
