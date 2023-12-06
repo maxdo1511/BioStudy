@@ -1,4 +1,4 @@
-package ru.hbb.learnstudio.user.Profile;
+package ru.hbb.learnstudio.user.profile;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -8,5 +8,6 @@ import java.util.Optional;
 public interface CourseDataRepository extends JpaRepository<CourseEntity, Long> {
     List<CourseEntity> findAll();
     List<CourseEntity> findAllByActive(boolean isActive);
+    Optional<CourseEntity> findCourseEntityById(long id);
 
 }

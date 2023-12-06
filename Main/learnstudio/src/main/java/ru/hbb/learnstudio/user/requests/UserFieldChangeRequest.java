@@ -5,9 +5,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class PublicUserDataResponse extends UserDataRequest {
+public class UserFieldChangeRequest {
 
-    private String lastAuth;
-    private String registerDate;
+    private String field;
+    private String value;
 
 }

@@ -1,4 +1,4 @@
-package ru.hbb.learnstudio.user.requests;
+package ru.hbb.learnstudio.user.responses;
 
 import lombok.Data;
 

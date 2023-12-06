@@ -1,21 +1,20 @@
-package ru.hbb.learnstudio.course;
+package ru.hbb.learnstudio.group;
+
 
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "course")
+@Table(name = "studygroups")
 @Data
-public class CourseEntity {
+public class StudyGroupsEntity {
 
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
 
     private String name;
     private String description;
-    private float cost;
-    private int discount;
-    private int duration;
-    private boolean active;
+    private int course;
+
 }

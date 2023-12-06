@@ -29,8 +29,6 @@ main {
 
 .main__page__container {
     padding: 105px 15px 0 15px;
-    background-color: var(--background-color-20);
-    border-radius: 15px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

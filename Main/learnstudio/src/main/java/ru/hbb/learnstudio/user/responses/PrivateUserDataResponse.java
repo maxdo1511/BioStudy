@@ -1,4 +1,4 @@
-package ru.hbb.learnstudio.user.requests;
+package ru.hbb.learnstudio.user.responses;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +14,5 @@ public class PrivateUserDataResponse extends UserDataRequest {
     private String phone;
     private String lastAuth;
     private String registerDate;
-    private List<String> userCourses;
 
 }

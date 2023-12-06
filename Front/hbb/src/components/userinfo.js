@@ -4,12 +4,13 @@ import Image from "next/image";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import config from "@/app/config";
+import {handleImageUpload} from "@/utils/image_module";
 
 export default function UserInfo() {
     const router = useRouter()
     const [info, setInfo] = useState(null)
     useEffect(() => {
-        fetch(config.user_simple_data_from_token, {
+        fetch(config.user_data_from_token, {
             method: "GET",
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("token")
@@ -43,6 +44,7 @@ export default function UserInfo() {
                                 }}
                             />
                         }
+                        <input className={"profile__icon__loader"} type="file" accept="image/*" onChange={handleImageUpload} />
                     </div>
                     <div className={"profile__info"}>
                         <h1 className={"text-2xl text-base"}>
@@ -59,6 +61,20 @@ export default function UserInfo() {
                         <br/>
                         <h2 className={"profile__external__text text-1xl"}>
                             email: {info.email}
+                        </h2>
+                    </div>
+                    <div className={"vertical__line"} />
+                    <div className={"profile__info__2"}>
+                        <h2 className={"profile__external__text__2 text-1xl"}>
+                            {"Тел: " + info.phone}
+                        </h2>
+                        <br/>
+                        <h2 className={"profile__external__text__2 text-1xl"}>
+                            Последний раз заходил: {info.lastAuth}
+                        </h2>
+                        <br/>
+                        <h2 className={"profile__external__text__2 text-1xl"}>
+                            Дата регистрации: {info.registerDate}
                         </h2>
                     </div>
                 </div>
