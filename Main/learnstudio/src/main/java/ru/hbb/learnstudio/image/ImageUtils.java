@@ -26,9 +26,9 @@ public class ImageUtils {
         Files.delete(path);
     }
 
-    public static File getImage(String uuid) throws IOException {
-        String removePath = DIR + uuid;
-        return new File(removePath);
+    public static File getImage(String path) throws IOException {
+        String imagePath = DIR + path;
+        return new File(imagePath);
     }
 
 }

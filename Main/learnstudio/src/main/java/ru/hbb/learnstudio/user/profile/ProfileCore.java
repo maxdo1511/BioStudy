@@ -7,6 +7,7 @@ import ru.hbb.learnstudio.course.CourseDataRepository;
 import ru.hbb.learnstudio.course.CourseEntity;
 import ru.hbb.learnstudio.group.StudyGroupsEntity;
 import ru.hbb.learnstudio.group.GroupRepository;
+import ru.hbb.learnstudio.image.ImageDir;
 import ru.hbb.learnstudio.user.UserEntity;
 import ru.hbb.learnstudio.user.UserRepository;
 import ru.hbb.learnstudio.image.ImageUtils;
@@ -110,10 +111,10 @@ public class ProfileCore {
         List<UserCourseEntity> userCourseEntities = userCourseRepository.findAllByUser(userEntity.getId());
         List<UserCourseResponse> userCourseResponses = new ArrayList<>();
         for (UserCourseEntity entity : userCourseEntities) {
-            String group = entity.getGroup();
-            StudyGroupsEntity studyGroupsEntity = groupRepository.findAll().get(0);
+            StudyGroupsEntity studyGroupsEntity = groupRepository.findStudyGroupsEntityByName(entity.getGroup()).orElseThrow();
             CourseEntity courseEntity = courseDataRepository.findCourseEntityById(studyGroupsEntity.getCourse()).orElseThrow();
             UserCourseResponse userCourseResponse = new UserCourseResponse();
+            userCourseResponse.setId(Math.toIntExact(courseEntity.getId()));
             userCourseResponse.setName(courseEntity.getName());
             userCourseResponse.setDuration(courseEntity.getDuration());
             userCourseResponse.setDescription(courseEntity.getDescription());
@@ -147,9 +148,9 @@ public class ProfileCore {
              "-icon" +
              ".png";
         try {
-         ImageUtils.saveImage(iconBytes, iconID);
+            ImageUtils.saveImage(iconBytes, ImageDir.USER_ICO.path + iconID);
         } catch (IOException e) {
-         return false;
+            return false;
         }
         return true;
     }

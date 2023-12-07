@@ -24,13 +24,26 @@ public class ImageController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/images/{userName}")
+    @GetMapping("/images/user/{userName}")
     ResponseEntity<?> getUserIcon(@PathVariable String userName) {
         try {
             String imgID = userName +
                     "-icon" +
                     ".png";
-            File img = ImageUtils.getImage(imgID);
+            File img = ImageUtils.getImage(ImageDir.USER_ICO.path + imgID);
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(Files.readAllBytes(img.toPath()));
+        }catch (IOException e) {
+            return null;
+        }
+    }
+
+    @GetMapping("/images/course/{courseID}")
+    ResponseEntity<?> getCourseIcon(@PathVariable String courseID) {
+        try {
+            String imgID = courseID +
+                    "-icon" +
+                    ".png";
+            File img = ImageUtils.getImage(ImageDir.COURSE_ICO.path + imgID);
             return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(Files.readAllBytes(img.toPath()));
         }catch (IOException e) {
             return null;

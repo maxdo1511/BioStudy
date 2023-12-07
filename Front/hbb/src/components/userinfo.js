@@ -21,8 +21,10 @@ export default function UserInfo() {
             }
         ).catch(e => {
             if (e.toString().includes("UNAUTHORIZED")) {
-                localStorage.removeItem("token")
-                router.push("/signin")
+                if (localStorage.getItem("token").length > 0) {
+                    localStorage.removeItem("token")
+                    router.push("/signin")
+                }
             }
         })
     }, [])
