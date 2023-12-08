@@ -13,11 +13,12 @@ export const metadata = {
 const inter = Inter({ subsets: ['latin'] })
 
 export default function RootLayout({ children }) {
-  return (
+
+    return (
       <html lang="ru">
           <body className="main">
             <header>
-              <Navbar />
+                <Navbar />
             </header>
 
             <main className={inter.className}>
@@ -30,5 +31,5 @@ export default function RootLayout({ children }) {
             </footer>
           </body>
       </html>
-  );
+    );
 };

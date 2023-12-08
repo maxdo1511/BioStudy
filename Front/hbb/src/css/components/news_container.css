@@ -14,13 +14,14 @@
 }
 
 .news__icon__container {
-    position: relative;
     width: 40%;
-    height: 100%;
+    height: 300px;
 }
 
 .news__icon {
     border-radius: 10px 0 0 10px;
+    width: 100%;
+    height: 100%;
 }
 
 .text__container {

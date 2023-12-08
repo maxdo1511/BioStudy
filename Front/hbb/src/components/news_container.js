@@ -10,7 +10,8 @@ export default function NewsContainer() {
             <div className={"news__icon__container"}>
                 <Image
                     sizes={"300px"}
-                    fill
+                    width="40%"
+                    height={300}
                     className={"news__icon"}
                     src={icon}
                     alt={""}

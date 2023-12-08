@@ -6,7 +6,6 @@ header {
     display: flex;
     justify-content: space-between;
     position: fixed;
-
     width: 80%;
     align-items: center;
 }
