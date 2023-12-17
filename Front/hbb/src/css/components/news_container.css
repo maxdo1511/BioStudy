@@ -50,7 +50,7 @@
     background-color: var(--button-color-primary);
     color: var(--white);
     border-radius: 10px;
-    align-content: end;
+    align-content: flex-end;
     display: flex;
     background-position: 50% 50%;
     background-repeat: no-repeat;
@@ -63,4 +63,8 @@
     translate: 1px;
     border-radius: 10px;
     background-size: 100% 100%;
+}
+
+.data__time {
+    padding-right: 15%;
 }

@@ -9,7 +9,6 @@ public class DateUtils {
     public static String longToDate(long timestamp) {
         Date date = new Date(timestamp);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-
         return dateFormat.format(date);
     }
 

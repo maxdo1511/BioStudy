@@ -3,8 +3,10 @@ package ru.hbb.learnstudio.user.profile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.hbb.learnstudio.course.CourseDataRepository;
 import ru.hbb.learnstudio.course.CourseEntity;
+import ru.hbb.learnstudio.course.Services.CourseService;
 import ru.hbb.learnstudio.group.StudyGroupsEntity;
 import ru.hbb.learnstudio.group.GroupRepository;
 import ru.hbb.learnstudio.image.ImageDir;
@@ -13,6 +15,7 @@ import ru.hbb.learnstudio.user.UserRepository;
 import ru.hbb.learnstudio.image.ImageUtils;
 import ru.hbb.learnstudio.annotations.OnlyRoleCanModify;
 import ru.hbb.learnstudio.user.enums.UserRole;
+import ru.hbb.learnstudio.user.requests.SignUpToCourseRequest;
 import ru.hbb.learnstudio.user.responses.*;
 import ru.hbb.learnstudio.user.utils.DateUtils;
 import ru.hbb.learnstudio.usercourse.UserCourseEntity;
@@ -24,13 +27,15 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
-public class ProfileCore {
+@Service
+public class ProfileService {
 
     private UserRepository userRepository;
     private CourseDataRepository courseDataRepository;
     private UserCourseRepository userCourseRepository;
     private GroupRepository groupRepository;
+    private CourseService courseService;
+
 
     @Autowired
     public void setGroupRepository(GroupRepository groupRepository) {
@@ -44,6 +49,10 @@ public class ProfileCore {
     public void setCourseDataRepository(CourseDataRepository courseDataRepository) {
         this.courseDataRepository = courseDataRepository;
     }
+    @Autowired
+    public void setCourseService(CourseService courseService) {
+        this.courseService = courseService;
+    }
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
@@ -51,7 +60,7 @@ public class ProfileCore {
     }
 
     public boolean hasPermission(Principal principal, UserRole userRole) {
-        UserEntity userEntity = userRepository.findUserByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(
+        UserEntity userEntity = userRepository.findUserEntitiesByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(
                 String.format("User '%s' not found", principal.getName())
         ));
         if (!userEntity.getRole().equalsIgnoreCase(userRole.toString())) {
@@ -68,32 +77,32 @@ public class ProfileCore {
     }
 
     public PrivateUserDataResponse getUserData(Principal principal) {
-        UserEntity userEntity = userRepository.findUserByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(
+        UserEntity userEntity = userRepository.findUserEntitiesByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(
                 String.format("User '%s' not found", principal.getName())
         ));
         PrivateUserDataResponse privateUserDataResponse = new PrivateUserDataResponse();
         privateUserDataResponse.setUsername(userEntity.getUsername());
         fillDefaultFields(privateUserDataResponse, userEntity);
-        privateUserDataResponse.setRegisterDate(DateUtils.longToDate(userEntity.getRegisterDate()));
-        privateUserDataResponse.setLastAuth(DateUtils.longToDate(userEntity.getLastAuth()));
+        privateUserDataResponse.setRegisterDate(DateUtils.longToDate(userEntity.getRegisterdate()));
+        privateUserDataResponse.setLastAuth(DateUtils.longToDate(userEntity.getLastauth()));
         privateUserDataResponse.setPhone(userEntity.getPhone());
         privateUserDataResponse.setEmail(userEntity.getEmail());
         return privateUserDataResponse;
     }
 
     public PublicUserDataResponse getUserData(String name) {
-        UserEntity userEntity = userRepository.findUserByUsername(name).orElseThrow(() -> new UsernameNotFoundException(
+        UserEntity userEntity = userRepository.findUserEntitiesByUsername(name).orElseThrow(() -> new UsernameNotFoundException(
                 String.format("User '%s' not found", name)
         ));
         PublicUserDataResponse publicUserDataResponse = new PublicUserDataResponse();
         fillDefaultFields(publicUserDataResponse, userEntity);
-        publicUserDataResponse.setRegisterDate(DateUtils.longToDate(userEntity.getRegisterDate()));
-        publicUserDataResponse.setLastAuth(DateUtils.longToDate(userEntity.getLastAuth()));
+        publicUserDataResponse.setRegisterDate(DateUtils.longToDate(userEntity.getRegisterdate()));
+        publicUserDataResponse.setLastAuth(DateUtils.longToDate(userEntity.getLastauth()));
         return publicUserDataResponse;
     }
 
     public PrivateSimpleDataResponse getSimpleUserData(Principal principal) {
-        UserEntity userEntity = userRepository.findUserByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(
+        UserEntity userEntity = userRepository.findUserEntitiesByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(
                 String.format("User '%s' not found", principal.getName())
         ));
         PrivateSimpleDataResponse privateSimpleDataResponse = new PrivateSimpleDataResponse();
@@ -105,20 +114,20 @@ public class ProfileCore {
     }
 
     public List<UserCourseResponse> getUserCourses(Principal principal) {
-        UserEntity userEntity = userRepository.findUserByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(
+        UserEntity userEntity = userRepository.findUserEntitiesByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(
                 String.format("User '%s' not found", principal.getName())
         ));
-        List<UserCourseEntity> userCourseEntities = userCourseRepository.findAllByUser(userEntity.getId());
+        List<UserCourseEntity> userCourseEntities = userCourseRepository.findUserCourseEntitiesByUserid(userEntity.getId());
         List<UserCourseResponse> userCourseResponses = new ArrayList<>();
         for (UserCourseEntity entity : userCourseEntities) {
-            StudyGroupsEntity studyGroupsEntity = groupRepository.findStudyGroupsEntityByName(entity.getGroup()).orElseThrow();
-            CourseEntity courseEntity = courseDataRepository.findCourseEntityById(studyGroupsEntity.getCourse()).orElseThrow();
+            StudyGroupsEntity studyGroupsEntity = groupRepository.findStudyGroupsEntityByName(entity.getGroupname()).orElseThrow();
+            CourseEntity courseEntity = courseDataRepository.findCourseEntityById(studyGroupsEntity.getCourseid()).orElseThrow();
             UserCourseResponse userCourseResponse = new UserCourseResponse();
             userCourseResponse.setId(Math.toIntExact(courseEntity.getId()));
             userCourseResponse.setName(courseEntity.getName());
             userCourseResponse.setDuration(courseEntity.getDuration());
             userCourseResponse.setDescription(courseEntity.getDescription());
-            userCourseResponse.setEnd_date(DateUtils.longToDate(entity.getEnd_date()));
+            userCourseResponse.setEnd_date(DateUtils.longToDate(entity.getEnddate()));
             userCourseResponse.setStart_date(DateUtils.longToDate(entity.getStart()));
             userCourseResponses.add(userCourseResponse);
         }
@@ -126,7 +135,7 @@ public class ProfileCore {
     }
 
     public String changeUserFiled(Principal principal, String field, String value) throws NoSuchFieldException, IllegalAccessException, RuntimeException {
-        UserEntity userEntity = userRepository.findUserByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(
+        UserEntity userEntity = userRepository.findUserEntitiesByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(
                 String.format("User '%s' not found", principal.getName())
         ));
         Class<UserEntity> c = UserEntity.class;
@@ -137,10 +146,13 @@ public class ProfileCore {
                 throw new RuntimeException("No permission");
             }
         }
-        String last_value = o_field.get(userEntity).toString();
+        Object last_value = o_field.get(userEntity);
         o_field.set(userEntity, value);
         userRepository.save(userEntity);
-        return last_value;
+        if (last_value != null) {
+            return last_value.toString();
+        }
+        return "";
     }
 
     public boolean changeUserIcon(byte[] iconBytes, UserEntity userEntity) {
@@ -155,9 +167,16 @@ public class ProfileCore {
         return true;
     }
 
+    public boolean signUpUserToCourse(Principal principal, SignUpToCourseRequest signUpToCourseRequest) {
+        UserEntity userEntity = userRepository.findUserEntitiesByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(
+                String.format("User '%s' not found", principal.getName())
+        ));
+        return courseService.signUpToCourse(userEntity, signUpToCourseRequest.getCourseID());
+    }
+
     private void fillDefaultFields(UserDataRequest userDataRequest, UserEntity entity) {
-        userDataRequest.setFirstName(entity.getFirstName());
-        userDataRequest.setSecondName(entity.getSecondName());
+        userDataRequest.setFirstName(entity.getFirstname());
+        userDataRequest.setSecondName(entity.getSecondname());
         userDataRequest.setDescription(entity.getDescription());
         userDataRequest.setRole(entity.getRole());
     }

@@ -13,10 +13,10 @@ public class UserCourseEntity {
     @Id
     private Long id;
 
-    private long user;
-    private String group;
+    private long userid;
+    private String groupname;
     private long start;
-    private long end_date;
-    private String attands;
+    private long enddate;
+    private String attends;
 
 }

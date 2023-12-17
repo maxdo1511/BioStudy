@@ -20,7 +20,6 @@ export default function Navbar() {
     useEffect(() => {
         setItem(localStorage.getItem("token"))
     }, [])
-
     return (
         <div className={"nav__container"}>
         {
@@ -87,8 +86,12 @@ export default function Navbar() {
                     }
                 </nav>
                 :
-                <div className={"full__screen__menu__container"} >
-
+                <div className={"full__screen__menu__container"}>
+                    <div className={"fixed"}>
+                        X
+                    </div>
+                    <a href="/" className="navbar__link prime__button animated__up__button"><i
+                        data-feather="home"></i><span>Главная</span></a>
                 </div>
         }
         </div>

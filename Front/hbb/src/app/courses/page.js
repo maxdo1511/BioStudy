@@ -10,19 +10,13 @@ export const coursesData = async () => {
     if (!res.ok) {
         throw new Error('Something went wrong!');
     }
-    const data = await res.json();
-
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(data);
-        }, 2000);
-    });
+    return  await res.json();
 }
 
 const Courses = async () => {
     const data = await coursesData();
     return (
-        <div>
+        <div className={"w-1/2"}>
             {
                 data.map((course) => (
                     <div key={course.id}>

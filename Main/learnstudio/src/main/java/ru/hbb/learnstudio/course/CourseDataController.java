@@ -6,12 +6,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+import ru.hbb.learnstudio.course.Request.CourseDataRequest;
 import ru.hbb.learnstudio.user.UserEntity;
 import ru.hbb.learnstudio.user.UserRepository;
 import ru.hbb.learnstudio.user.enums.UserRole;
 
 import java.security.Principal;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/course")
@@ -35,7 +35,7 @@ public class CourseDataController {
         if (principal == null) {
             return null;
         }
-        UserEntity userEntity = userRepository.findUserByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(
+        UserEntity userEntity = userRepository.findUserEntitiesByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(
                 String.format("User '%s' not found", principal.getName())
         ));
         if (!userEntity.getRole().equalsIgnoreCase(UserRole.ADMIN.toString())) {
@@ -66,7 +66,7 @@ public class CourseDataController {
         if (principal == null) {
             return null;
         }
-        UserEntity userEntity = userRepository.findUserByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(
+        UserEntity userEntity = userRepository.findUserEntitiesByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(
                 String.format("User '%s' not found", principal.getName())
         ));
         if (!userEntity.getRole().equalsIgnoreCase(UserRole.ADMIN.toString())) {

@@ -1,9 +1,8 @@
 package ru.hbb.learnstudio.course;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import ru.hbb.learnstudio.course.Data.CourseDataResponse;
+import ru.hbb.learnstudio.course.Response.CourseDataResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +40,9 @@ public class CourseCore {
     }
 
     private CourseDataResponse fillCourseData(CourseEntity courseEntity, CourseDataResponse courseDataResponse) {
-        int discount = courseEntity.getDiscount();
+        double discount = (double) courseEntity.getDiscount() / 100;
         if (discount > 0) {
-            courseDataResponse.setFinal_cost(Math.abs(courseEntity.getCost() * (1 - courseEntity.getDiscount())));
+            courseDataResponse.setFinal_cost((float) Math.abs(courseEntity.getCost() * (1 - discount)));
         }else {
             courseDataResponse.setFinal_cost(courseEntity.getCost());
         }

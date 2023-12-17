@@ -21,23 +21,21 @@ export default function Profile() {
             }
         )
     }, [])
-    console.log(courses)
     return (
         <div className={"profile__container"}>
-            <div className={"profile__courses__container"}>
-                {courses != null &&
-                    <div className={"profile__course__container"}>
-                        {
-                            courses.map((course) => (
-                                <div key={course.id} className={"profile__course__container"}>
-                                    <UserCourse course={course} />
-                                    <br/>
-                                </div>
-                            ))
-                        }
-                    </div>
-                }
-            </div>
+            {courses != null &&
+                <div className={"profile__courses__container"}>
+                    <h1 className={"font-bold text-3xl"}>Ваши курсы</h1>
+                    <br/>
+                    {
+                        courses.map((course) => (
+                            <div key={course.id} className={"profile__course__container"}>
+                                <UserCourse course={course} />
+                            </div>
+                        ))
+                    }
+                </div>
+            }
         </div>
     )
 }

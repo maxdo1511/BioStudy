@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface UserCourseRepository extends JpaRepository<UserCourseEntity, Long> {
 
-    List<UserCourseEntity> findAllByUser(long user);
+    List<UserCourseEntity> findUserCourseEntitiesByUserid(long user);
 
 }

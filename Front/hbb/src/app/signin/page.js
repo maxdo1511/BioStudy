@@ -13,21 +13,37 @@ export default function SignIn() {
 
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
+    const [login, setLogin] = useState(false)
 
     const router = useRouter();
 
-    if (typeof window !== 'undefined') {
+    useEffect(() => {
         if (localStorage.getItem('token') != null) {
-            router.push("/profile")
+            if (localStorage.getItem('token').length < 15) {
+                localStorage.removeItem('token')
+            }else {
+                router.push("/profile")
+            }
         }
-    }
+    })
 
     function handle() {
-        signIn(name, password)
+        setLogin(true)
+        signIn(name, password).then(r => setLogin(false)).then(() => {
+            if (localStorage.getItem('token') != null) {
+                if (localStorage.getItem('token').length < 15) {
+                    localStorage.removeItem('token')
+                }else {
+                    router.push("/profile")
+                }
+            }
+
+        })
     }
 
     return (
         <div>
+            {!login &&
             <form onSubmit={handle}>
                 <h3>Войдите</h3>
 
@@ -66,6 +82,7 @@ export default function SignIn() {
                     </div>
                 </div>
             </form>
+            }
         </div>
     );
 }

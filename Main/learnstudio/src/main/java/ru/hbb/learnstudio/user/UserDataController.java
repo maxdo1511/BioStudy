@@ -5,9 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
-import ru.hbb.learnstudio.user.profile.ProfileCore;
+import ru.hbb.learnstudio.course.Services.CourseService;
+import ru.hbb.learnstudio.user.profile.ProfileService;
 import ru.hbb.learnstudio.user.enums.UserRole;
+import ru.hbb.learnstudio.user.requests.SignUpToCourseRequest;
 import ru.hbb.learnstudio.user.requests.UserFieldChangeRequest;
 import ru.hbb.learnstudio.user.responses.PrivateSimpleDataResponse;
 import ru.hbb.learnstudio.user.responses.PrivateUserDataResponse;
@@ -20,16 +23,16 @@ import java.security.Principal;
 @RequestMapping("/user")
 public class UserDataController {
 
-    private ProfileCore profileCore;
+    private ProfileService profileService;
 
     @Autowired
-    public void setProfileCore(ProfileCore profileCore) {
-        this.profileCore = profileCore;
+    public void setProfileCore(ProfileService profileService) {
+        this.profileService = profileService;
     }
 
     @GetMapping("/public/{username}")
     String getPublicUserData(@PathVariable String username) {
-        PublicUserDataResponse publicUserDataResponse = profileCore.getUserData(username);
+        PublicUserDataResponse publicUserDataResponse = profileService.getUserData(username);
         String json = getJSON(publicUserDataResponse);
         return json;
     }
@@ -39,7 +42,7 @@ public class UserDataController {
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
         }
-        PrivateUserDataResponse privateUserDataResponse = profileCore.getUserData(principal);
+        PrivateUserDataResponse privateUserDataResponse = profileService.getUserData(principal);
         String json = getJSON(privateUserDataResponse);
         return ResponseEntity.ok(json);
     }
@@ -49,10 +52,10 @@ public class UserDataController {
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
         }
-        if (!profileCore.hasPermission(principal, UserRole.ADMIN)) {
+        if (!profileService.hasPermission(principal, UserRole.ADMIN)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("No permissions");
         }
-        PrivateUserDataResponse privateUserDataResponse = profileCore.getUserData(principal);
+        PrivateUserDataResponse privateUserDataResponse = profileService.getUserData(principal);
         String json = getJSON(privateUserDataResponse);
         return ResponseEntity.ok(json);
     }
@@ -62,7 +65,7 @@ public class UserDataController {
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
         }
-        PrivateSimpleDataResponse privateSimpleDataResponse = profileCore.getSimpleUserData(principal);
+        PrivateSimpleDataResponse privateSimpleDataResponse = profileService.getSimpleUserData(principal);
         String json = getJSON(privateSimpleDataResponse);
         return ResponseEntity.ok(json);
     }
@@ -75,11 +78,11 @@ public class UserDataController {
         String last_value = "";
         String new_value = userFieldChangeRequest.getValue();
         try {
-             last_value = profileCore.changeUserFiled(principal, userFieldChangeRequest.getField(), userFieldChangeRequest.getValue());
+             last_value = profileService.changeUserFiled(principal, userFieldChangeRequest.getField(), userFieldChangeRequest.getValue());
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(getJSON(e.getMessage()));
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(getJSON(e.getMessage()));
         }
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -95,9 +98,25 @@ public class UserDataController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
         }
         try {
-            return ResponseEntity.ok(getJSON(profileCore.getUserCourses(principal)));
+            return ResponseEntity.ok(getJSON(profileService.getUserCourses(principal)));
         }catch (Exception e) {
             e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/usercourse/signup")
+    ResponseEntity<?> signUpToCourse(Principal principal, @RequestBody SignUpToCourseRequest signUpToCourseRequest) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("UNAUTHORIZED");
+        }
+        try {
+            if (profileService.signUpUserToCourse(principal, signUpToCourseRequest)) {
+                return ResponseEntity.ok(null);
+            }else {
+                throw new RuntimeException("Something going wrong!");
+            }
+        }catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
@@ -112,5 +131,4 @@ public class UserDataController {
         }
         return json;
     }
-
 }

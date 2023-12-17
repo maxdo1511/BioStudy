@@ -14,12 +14,12 @@ import java.security.Principal;
 @RequestMapping("/profile")
 public class ProfileController {
 
-    private ProfileCore profileCore;
+    private ProfileService profileService;
     private UserRepository userRepository;
 
     @Autowired
-    public void setProfileCore(ProfileCore profileCore) {
-        this.profileCore = profileCore;
+    public void setProfileCore(ProfileService profileService) {
+        this.profileService = profileService;
     }
 
     @Autowired
@@ -32,11 +32,11 @@ public class ProfileController {
         if (principal == null) {
             return null;
         }
-        UserEntity userEntity = userRepository.findUserByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(
+        UserEntity userEntity = userRepository.findUserEntitiesByUsername(principal.getName()).orElseThrow(() -> new UsernameNotFoundException(
                 String.format("User '%s' not found", principal.getName())
         ));
         try {
-            boolean success = profileCore.changeUserIcon(request, userEntity);
+            boolean success = profileService.changeUserIcon(request, userEntity);
             if (!success) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Can't save image");
             }

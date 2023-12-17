@@ -50,4 +50,15 @@ public class ImageController {
         }
     }
 
+    @GetMapping("/images/news/{name}")
+    ResponseEntity<?> getNewsImage(@PathVariable String name) {
+        try {
+            String imgID = name;
+            File img = ImageUtils.getImage(ImageDir.NEWS.path + imgID);
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(Files.readAllBytes(img.toPath()));
+        }catch (IOException e) {
+            return null;
+        }
+    }
+
 }

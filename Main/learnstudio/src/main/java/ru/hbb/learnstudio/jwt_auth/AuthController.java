@@ -66,8 +66,8 @@ public class AuthController {
         userEntity.setPassword(hashed);
         userEntity.setRole(UserRole.DEFAULT.toString());
         Date date = new Date();
-        userEntity.setRegisterDate(date.getTime());
-        userEntity.setLastAuth(-1);
+        userEntity.setRegisterdate(date.getTime());
+        userEntity.setLastauth(-1);
         userRepository.save(userEntity);
         return ResponseEntity.ok("Success!");
     }
@@ -83,9 +83,9 @@ public class AuthController {
         }
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtCore.generateToken(authentication);
-        UserEntity userEntity = userRepository.findUserByUsername(signinRequest.getUsername()).orElseThrow();
+        UserEntity userEntity = userRepository.findUserEntitiesByUsername(signinRequest.getUsername()).orElseThrow();
         Date date = new Date();
-        userEntity.setLastAuth(date.getTime());
+        userEntity.setLastauth(date.getTime());
         userRepository.save(userEntity);
         return ResponseEntity.ok(jwt);
     }

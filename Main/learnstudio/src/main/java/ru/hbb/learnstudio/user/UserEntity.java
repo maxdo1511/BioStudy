@@ -22,13 +22,14 @@ public class UserEntity {
     @OnlyRoleCanModify(role = UserRole.ADMIN)
     private String role;
     private String description;
-    private String firstName;
-    private String secondName;
+    private String firstname;
+    private String secondname;
     @OnlyRoleCanModify(role = UserRole.ADMIN)
     private String phone;
     @OnlyRoleCanModify(role = UserRole.ADMIN)
-    private long registerDate;
+    private long registerdate;
     @OnlyRoleCanModify(role = UserRole.ADMIN)
-    private long lastAuth;
+    private long lastauth;
+
 
 }

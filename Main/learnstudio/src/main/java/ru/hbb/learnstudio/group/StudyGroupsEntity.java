@@ -15,6 +15,6 @@ public class StudyGroupsEntity {
 
     private String name;
     private String description;
-    private int course;
+    private int courseid;
 
 }

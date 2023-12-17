@@ -1,4 +1,4 @@
-package ru.hbb.learnstudio.course;
+package ru.hbb.learnstudio.course.Request;
 
 import lombok.Data;
 

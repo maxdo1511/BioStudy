@@ -67,3 +67,9 @@
     text-align: right;
     font-weight: bolder;
 }
+
+@media (max-width: 800px) {
+    .course__image__container:hover {
+        width: 100%;
+    }
+}
